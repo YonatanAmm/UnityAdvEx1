@@ -50035,7 +50035,7 @@ MonoBehaviour:
   uiManager: {fileID: 1929655976}
   elfCharacter: {fileID: 1357823981}
   coinsGenerator: {fileID: 11400000, guid: 3270cd4e37fb8734e8af8cb198b0696b, type: 2}
-  amount: 20
+  amount: 100
   rangeMin: {x: -25, y: 1.5, z: -25}
   rangeMax: {x: 25, y: 1.5, z: 25}
   objectRadius: 1
