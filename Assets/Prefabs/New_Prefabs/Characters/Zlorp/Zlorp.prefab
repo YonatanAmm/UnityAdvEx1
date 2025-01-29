@@ -80,8 +80,16 @@ PrefabInstance:
       value: Zlorp
       objectReference: {fileID: 0}
     - target: {fileID: 691885052069866170, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 5907939070166660095}
+    - target: {fileID: 691885052069866170, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
       propertyPath: layerMask.m_Bits
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 726562621466042239, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 726562621466042239, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
       propertyPath: m_AgentTypeID
@@ -135,6 +143,18 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 6c19dfac634fad14e96f61da9ee7d054, type: 2}
+    - target: {fileID: 3550733591680641042, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744613926708505674, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8744613926708505674, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
+      propertyPath: m_Center.y
+      value: 0.55556464
+      objectReference: {fileID: 0}
     - target: {fileID: 8744613926708505674, guid: 6a58a20adfb8b6146b84db912022b344, type: 3}
       propertyPath: m_IsTrigger
       value: 0
@@ -177,7 +197,14 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig1:Hips'\n\tTransform 'mixamorig1:LeftHandThumb1'\n\tTransform
+    'mixamorig1:RightHand'\n\tTransform 'mixamorig1:LeftHandMiddle2'\n\tTransform
+    'mixamorig1:RightFoot'\n\tTransform 'mixamorig1:Spine1'\n\tTransform 'mixamorig1:RightLeg'\n\tTransform
+    'mixamorig1:RightHandMiddle2'\n\tTransform 'mixamorig1:Hips'\n\tTransform 'mixamorig1:RightArm'\n\tand
+    more ...\n\tFrom animation clip 'mixamo.com'\n\tFrom animation clip 'mixamo.com'\n\tFrom
+    animation clip 'mixamo.com'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
