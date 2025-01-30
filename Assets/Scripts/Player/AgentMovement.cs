@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics.Tracing;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -15,6 +12,9 @@ public class AgentMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask layerMask;
+
+    [SerializeField] private float maxHealthPoints = 100f;
+    [SerializeField] private float healthPoint;
     
     private float _originalSpeed;
     private bool reached = true;
@@ -27,6 +27,7 @@ public class AgentMovement : MonoBehaviour
         _originalSpeed = agent.speed;
         SetAreasCosts();
         finishedAnimation = true;
+        healthPoint = maxHealthPoints;
     }
     void Update()
     {
@@ -47,7 +48,9 @@ public class AgentMovement : MonoBehaviour
         }
         else if (other.CompareTag("Obstacle"))  //When a ball hits the character
         {
+            // Trigger animation and take damage
             GetHit();
+            TakeDamage(15);
         }
     }
 
@@ -106,4 +109,15 @@ public class AgentMovement : MonoBehaviour
         finishedAnimation = state;
     }
 
+    public void TakeDamage(float damage)
+    {
+        healthPoint -= damage;
+
+        float hpPrecentLeft = healthPoint / maxHealthPoints;
+        float weight = Mathf.Clamp(1 - hpPrecentLeft, 0f, 1f);
+
+        animator.SetLayerWeight(1, weight);
+
+        Debug.Log($"Took Damage | Weight: {weight}");
+    }
 }
