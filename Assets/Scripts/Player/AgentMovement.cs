@@ -23,14 +23,12 @@ public class AgentMovement : MonoBehaviour
     private bool reached = true;
     private bool _canMove = true;
 
-
     void Start()
     {
         _originalSpeed = agent.speed;
         SetAreasCosts();
         hp = 100;
     }
-
     void Update()
     {
         if (_canMove)
@@ -44,7 +42,6 @@ public class AgentMovement : MonoBehaviour
             animator.SetFloat(_speed, agent.velocity.magnitude);
         }
     }
-
 
     private void OnTriggerEnter(Collider other) //When the player reaches final, invoke this event
     {
@@ -114,6 +111,4 @@ public class AgentMovement : MonoBehaviour
         agent.isStopped = true;
         animator.SetTrigger("Falling");
     }
-
-
 }

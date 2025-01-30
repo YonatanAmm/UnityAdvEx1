@@ -9,14 +9,12 @@ public class Obstecals : MonoBehaviour
     [SerializeField] private GameObject[] wayPoints;
     private int currentPath = 0;
     private bool hasArrived = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         CalculateCosts();
         agent.SetDestination(wayPoints[currentPath].transform.position);
     }
 
-    // Update is called once per frame
     void Update()
     {
         HasReached();
