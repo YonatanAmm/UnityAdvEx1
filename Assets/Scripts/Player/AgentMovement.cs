@@ -28,7 +28,6 @@ public class AgentMovement : MonoBehaviour
         SetAreasCosts();
         finishedAnimation = true;
     }
-
     void Update()
     {
         Clicked();
@@ -39,7 +38,6 @@ public class AgentMovement : MonoBehaviour
             animator.SetFloat(_speed, agent.velocity.magnitude);
         }
     }
-
 
     private void OnTriggerEnter(Collider other) //When the player reaches final, invoke this event
     {
@@ -105,13 +103,7 @@ public class AgentMovement : MonoBehaviour
 
     public void ControlMovement(bool state)
     {
-        if (state)
-        {
-            finishedAnimation = true;
-        }
-        else
-        {
-            finishedAnimation = false;
-        }
+        finishedAnimation = state;
     }
+
 }

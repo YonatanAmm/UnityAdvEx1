@@ -15,8 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] BoxCollider finishCollider;
 
     [Header("Main Player")]
-    [SerializeField] Character elfCharacter;
-    [SerializeField] AgentMovement elfMovement;
+    [SerializeField] Character Character;
+    [SerializeField] AgentMovement agentMovement;
 
     [Header("Texts")]
     [SerializeField] TextMeshProUGUI finishObjectText;
@@ -30,10 +30,10 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         coinCollectedText.SetText("0");
-        elfMovement.OnAgentReachDestinationActionEvent += ShowDestenationText;
-        elfCharacter.OnCoinCollected += UpdateCoinBalance;
-        elfCharacter.OnEventSurfaceEnterEvent.AddListener(HandleFogEnter);
-        elfCharacter.OnEventSurfaceExitEvent.AddListener(HandleFogExit);
+        agentMovement.OnAgentReachDestinationActionEvent += ShowDestenationText;
+        Character.OnCoinCollected += UpdateCoinBalance;
+        Character.OnEventSurfaceEnterEvent.AddListener(HandleFogEnter);
+        Character.OnEventSurfaceExitEvent.AddListener(HandleFogExit);
     }
 
     public void SetCollectedText(bool state) //When you collect all the coins, spawn the finish text and trigger
@@ -55,12 +55,12 @@ public class UIManager : MonoBehaviour
         surfaceColor.a = 0.15f;
         surfaceFogOverlay.color = surfaceColor;
         surfaceFogOverlay.enabled = true;
-        DecreaseSpeed.Invoke(surface.SpeedModifier, elfMovement);
+        DecreaseSpeed.Invoke(surface.SpeedModifier, agentMovement);
     }
     private void HandleFogExit() //Reset the player's speed to the original, remove the overlays and the partical effect
     {
         surfaceFogOverlay.enabled = false;
-        DecreaseSpeed.Invoke(1, elfMovement);
+        DecreaseSpeed.Invoke(1, agentMovement);
     }
 
 
