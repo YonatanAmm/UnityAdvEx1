@@ -21,6 +21,7 @@ public class AgentMovement : MonoBehaviour
     public NavMeshAgent Agent { get { return agent; } }
     private float _originalSpeed;
     private bool reached = true;
+    private bool _canMove = true;
 
 
     void Start()
@@ -32,7 +33,10 @@ public class AgentMovement : MonoBehaviour
 
     void Update()
     {
-        Clicked();
+        if (_canMove)
+        {
+            Clicked();
+        }
         HasArrived();
 
         if (animator)
@@ -100,9 +104,16 @@ public class AgentMovement : MonoBehaviour
         agent.speed = _originalSpeed;
     }
 
+    public void ControlMovement(bool state)
+    {
+        _canMove = state;
+    }
+
     private void GetHit()   //Generic method for when the character gets hit
     {
         agent.isStopped = true;
         animator.SetTrigger("Falling");
     }
+
+
 }
