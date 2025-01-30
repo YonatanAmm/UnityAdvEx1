@@ -30,10 +30,7 @@ public class AgentMovement : MonoBehaviour
     }
     void Update()
     {
-        if (_canMove)
-        {
-            Clicked();
-        }
+        Clicked();
         HasArrived();
 
         if (animator)
@@ -106,13 +103,7 @@ public class AgentMovement : MonoBehaviour
 
     public void ControlMovement(bool state)
     {
-        if (state)
-        {
-            finishedAnimation = true;
-        }
-        else
-        {
-            finishedAnimation = false;
-        }
+        finishedAnimation = state;
     }
+
 }
