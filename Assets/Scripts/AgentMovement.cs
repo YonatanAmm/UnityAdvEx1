@@ -10,24 +10,23 @@ public class AgentMovement : MonoBehaviour
     public event UnityAction OnAgentReachDestinationActionEvent; //Informs that the player has reached the final destination
     
     private static readonly int _speed = Animator.StringToHash("Speed");
-    private static readonly int _hpPrecentage = Animator.StringToHash("hpPrecentage");
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask layerMask;
-    private int hp;
     
-    public NavMeshAgent Agent { get { return agent; } }
     private float _originalSpeed;
     private bool reached = true;
-
+    
+    public NavMeshAgent Agent { get { return agent; } }
+    private bool finishedAnimation;
 
     void Start()
     {
         _originalSpeed = agent.speed;
         SetAreasCosts();
-        hp = 100;
+        finishedAnimation = true;
     }
 
     void Update()
@@ -50,15 +49,13 @@ public class AgentMovement : MonoBehaviour
         }
         else if (other.CompareTag("Obstacle"))  //When a ball hits the character
         {
-            hp -= 10;
-            animator.SetFloat(_hpPrecentage, hp / 100);     //makes the character stay down for longer
             GetHit();
         }
     }
 
     public void Clicked()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && finishedAnimation)
         {
             Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             if(Physics.Raycast(ray,out RaycastHit rayHit,Mathf.Infinity, layerMask))
@@ -100,9 +97,21 @@ public class AgentMovement : MonoBehaviour
         agent.speed = _originalSpeed;
     }
 
-    private void GetHit()   //Generic method for when the character gets hit
+    public void GetHit()   //Generic method for when the character gets hit
     {
         agent.isStopped = true;
         animator.SetTrigger("Falling");
+    }
+
+    public void ControlMovement(bool state)
+    {
+        if (state)
+        {
+            finishedAnimation = true;
+        }
+        else
+        {
+            finishedAnimation = false;
+        }
     }
 }
