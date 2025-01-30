@@ -8,11 +8,15 @@ using UnityEngine.Events;
 public class AgentMovement : MonoBehaviour
 {
     public event UnityAction OnAgentReachDestinationActionEvent; //Informs that the player has reached the final destination
+    
+    private static readonly int _speed = Animator.StringToHash("Speed");
+    private static readonly int _hpPrecentage = Animator.StringToHash("hpPrecentage");
 
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Animator animator;
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask layerMask;
+    private int hp;
     
     public NavMeshAgent Agent { get { return agent; } }
     private float _originalSpeed;
@@ -23,19 +27,32 @@ public class AgentMovement : MonoBehaviour
     {
         _originalSpeed = agent.speed;
         SetAreasCosts();
+        hp = 100;
     }
 
     void Update()
     {
         Clicked();
         HasArrived();
+
+        if (animator)
+        {
+            animator.SetFloat(_speed, agent.velocity.magnitude);
+        }
     }
+
 
     private void OnTriggerEnter(Collider other) //When the player reaches final, invoke this event
     {
         if (other.CompareTag("Final"))
         {
             OnAgentReachDestinationActionEvent?.Invoke();
+        }
+        else if (other.CompareTag("Obstacle"))  //When a ball hits the character
+        {
+            hp -= 10;
+            animator.SetFloat(_hpPrecentage, hp / 100);     //makes the character stay down for longer
+            GetHit();
         }
     }
 
@@ -47,8 +64,8 @@ public class AgentMovement : MonoBehaviour
             if(Physics.Raycast(ray,out RaycastHit rayHit,Mathf.Infinity, layerMask))
             {
                 agent.SetDestination(rayHit.point);
-                animator.SetBool("playRunning", true);
-                animator.SetBool("playIdle", false);
+                //animator.SetBool("playRunning", true);
+                //animator.SetBool("playIdle", false);
                 reached = false;
                 agent.isStopped = false;
             }
@@ -61,8 +78,8 @@ public class AgentMovement : MonoBehaviour
         {
             reached = true;
             agent.isStopped = true;
-            animator.SetBool("playRunning", false);
-            animator.SetBool("playIdle", true);
+            //animator.SetBool("playRunning", false);
+            //animator.SetBool("playIdle", true);
         }
     }
 
@@ -81,5 +98,11 @@ public class AgentMovement : MonoBehaviour
     public void ResetSpeed() //To return to the previouse state of speed after leaving a special surface
     {
         agent.speed = _originalSpeed;
+    }
+
+    private void GetHit()   //Generic method for when the character gets hit
+    {
+        agent.isStopped = true;
+        animator.SetTrigger("Falling");
     }
 }
